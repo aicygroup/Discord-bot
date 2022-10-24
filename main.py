@@ -58,7 +58,7 @@ class Aicybot(commands.Bot):
                     print(f'Loaded cog: {file[:-3]}')
                 except:
                     traceback.print_exc()
-        await bot.change_presence(activity = discord.Activity(name='起動したよ'))
+        await bot.change_presence(activity = discord.Activity(name='起動したよ', type=discord.ActivityType.playing), status='online')
         print(f'Logged in {bot.user}')
 
 
