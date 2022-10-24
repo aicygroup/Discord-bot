@@ -59,6 +59,7 @@ class Aicybot(commands.Bot):
                 except:
                     traceback.print_exc()
         await bot.change_presence(activity = discord.Activity(name='起動したよ'))
+        print(f'Logged in {bot.user}')
 
 
 bot=Aicybot()

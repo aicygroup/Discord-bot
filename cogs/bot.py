@@ -10,6 +10,7 @@ class Bot(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
     async def change_prefix(self, ctx, new_prefix: str):
+        prefix_log = self.bot.get_channel(1033503818765320232)
         # コマンドが実行されたサーバーでカスタムprefixが設定されていれば実行
         if str(ctx.message.guild.id) in self.bot.prefix_json.keys():
 
@@ -24,6 +25,7 @@ class Bot(commands.Cog):
 
             # 完了メッセージ
             await ctx.send(f'{ctx.message.guild.name} のprefixが{self.bot.prefix_json[str(ctx.message.guild.id)]}に変更されました')
+            await prefix_log.send(f'{ctx.message.guild.id}: {self.bot.prefix_json[str(ctx.message.guild.id)]}, new_prefix')
             return
 
         else:
@@ -36,6 +38,7 @@ class Bot(commands.Cog):
 
             # 完了メッセージ
             await ctx.send(f'{ctx.message.guild.name} のprefixが{self.bot.prefix_json[str(ctx.message.guild.id)]}に変更されました')
+            await prefix_log.send(f'{ctx.message.guild.id}: {self.bot.prefix_json[str(ctx.message.guild.id)]}, change_prefix')
             return
 async def setup(bot):
     await bot.add_cog(Bot(bot))
