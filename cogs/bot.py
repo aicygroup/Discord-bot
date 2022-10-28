@@ -25,9 +25,13 @@ class Bot(commands.Cog):
 
             # 完了メッセージ
             await ctx.send(f'{ctx.message.guild.name} のprefixが{self.bot.prefix_json[str(ctx.message.guild.id)]}に変更されました')
-            await prefix_log.send(f'{ctx.message.guild.id}: {self.bot.prefix_json[str(ctx.message.guild.id)]}, new_prefix')
+            await prefix_log.send(f'{ctx.message.guild.id}: {self.bot.prefix_json[str(ctx.message.guild.id)]} new_prefix')
             return
 
+        elif new_prefix == 'a.':
+            self.bot.prefix_json.pop[str(ctx.message.guild.id)]
+            await ctx.send(f'{ctx.message.guild.name}のプレフィックスをリセットしました。')
+            await prefix_log.send(f'{ctx.guild.id} : reset_prefix')
         else:
             # dictにコマンドを実行したサーバーのカスタムprefix情報を追加
             self.bot.prefix_json[str(ctx.message.guild.id)] = new_prefix
