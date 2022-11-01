@@ -27,11 +27,11 @@ class Aicybot(commands.Bot):
             intents=discord.Intents.all()
         )
         self.afk_pass = os.getenv('afk-pass')
+        self.admin_guild = bot.get_guild(1033496363897475163)
+        self.owner = bot.get_user(964887498436276305)
     async def on_ready(self):
         await bot.change_presence(activity = discord.Activity(name=f"起動中", type=discord.ActivityType.playing), status='dnd')
         print('Loading any items')
-        bot.admin_guild = bot.get_guild(1033496363897475163)
-        bot.owner = bot.get_user(964887498436276305)
         #prefix json loader
         try:
             with open('./data/prefix.json', encoding='UTF-8') as f:
