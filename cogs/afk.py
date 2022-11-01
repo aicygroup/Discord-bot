@@ -11,7 +11,7 @@ class AFK(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.hybrid_command()
     async def afk(self, ctx, reason=None):
         await asyncio.sleep(1)
         url = requests.get(f'https://api.aic-group.net/get/afk?pass=ZxbOcHbVF9FEfoPbXq5QlQ2WcdnWmB6j&action=set&id={ctx.author.id}&name={ctx.author.name}&tag={ctx.author.discriminator}&reason={reason}')

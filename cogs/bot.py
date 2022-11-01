@@ -7,7 +7,7 @@ class Bot(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(description="サーバープレフィックスを変更できます。")
+    @commands.hybrid_command(description="サーバープレフィックスを変更できます。")
     @commands.has_guild_permissions(administrator=True)
     async def change_prefix(self, ctx, new_prefix: str):
         prefix_log = self.bot.get_channel(1033503818765320232)
