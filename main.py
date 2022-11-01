@@ -26,11 +26,12 @@ class Aicybot(commands.Bot):
             allowed_mentions=discord.AllowedMentions(replied_user=False, everyone=False),
             intents=discord.Intents.all()
         )
+        self.afk_pass = os.getenv('afk-pass')
+        self.admin_guild = bot.get_guild(1033496363897475163)
+        self.owner = bot.get_user(964887498436276305)
     async def on_ready(self):
         await bot.change_presence(activity = discord.Activity(name=f"起動中", type=discord.ActivityType.playing), status='dnd')
         print('Loading any items')
-        bot.admin_guild = bot.get_guild(1033496363897475163)
-        bot.owner = bot.get_user(964887498436276305)
         #prefix json loader
         try:
             with open('./data/prefix.json', encoding='UTF-8') as f:
@@ -45,12 +46,13 @@ class Aicybot(commands.Bot):
             print('Config loaded')
         except:
             traceback.print_exc()
-        #jishakuの読み込み
+        #jishaku loader
         try:
             await bot.load_extension("jishaku")
             print("Loaded jishaku")
         except:
             traceback.print_exc()
+        # cog loader
         for file in os.listdir('./cogs'):
             if file.endswith('.py'):
                 try:
@@ -58,8 +60,10 @@ class Aicybot(commands.Bot):
                     print(f'Loaded cog: {file[:-3]}')
                 except:
                     traceback.print_exc()
-        await bot.change_presence(activity = discord.Activity(name='起動したよ', type=discord.ActivityType.playing), status='online')
+        await bot.change_presence(activity = discord.Activity(name='起動したよ Ver:β', type=discord.ActivityType.playing), status='online')
         print(f'Logged in {bot.user}')
+        
+        await bot.get_channel(1034784718123704361).send(embed=discord.Embed(title='起動完了', description=f'サーバー数:{len(bot.guilds)}\nメンバー数：{len(bot.users)}'))
 
 
 bot=Aicybot()
