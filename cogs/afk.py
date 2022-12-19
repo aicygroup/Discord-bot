@@ -14,7 +14,7 @@ class AFK(commands.Cog):
     @commands.hybrid_command()
     async def afk(self, ctx, reason=None):
         await asyncio.sleep(1)
-        url = requests.get(f'https://api.aic-group.net/get/afk?pass=ZxbOcHbVF9FEfoPbXq5QlQ2WcdnWmB6j&action=set&id={ctx.author.id}&name={ctx.author.name}&tag={ctx.author.discriminator}&reason={reason}')
+        url = requests.get(f'https://api.aic-group.net/v1/discord/afk/?pass=ZxbOcHbVF9FEfoPbXq5QlQ2WcdnWmB6j&action=set&id={ctx.author.id}&name={ctx.author.name}&tag={ctx.author.discriminator}&reason={reason}')
         text = url.text
         data = json.loads(text)
         await self.bot.get_channel(1034783037029875729).send(data)
@@ -35,7 +35,7 @@ class AFK(commands.Cog):
             return
         for m in message.mentions:
             user = self.bot.get_user(m.id)
-            url = requests.get(f'https://api.aic-group.net/get/afk?pass={self.bot.afk_pass}&action=check&id={user.id}')
+            url = requests.get(f'https://api.aic-group.net/v1/discord/afk/?pass={self.bot.afk_pass}&action=check&id={user.id}')
             text = url.text
             data = json.loads(text)
             await self.bot.get_channel(1034783037029875729).send(data)
@@ -48,12 +48,12 @@ class AFK(commands.Cog):
             else:
                 pass
         user = message.author
-        url = requests.get(f'https://api.aic-group.net/get/afk?pass={self.bot.afk_pass}&action=check&id={user.id}')
+        url = requests.get(f'https://api.aic-group.net/v1/discord/afk/?pass={self.bot.afk_pass}&action=check&id={user.id}')
         text = url.text
         data = json.loads(text)
         await self.bot.get_channel(1034783037029875729).send(data)
         if data['message'] == f'このユーザー({user.id})はAFKです。':
-            url = requests.get(f'https://api.aic-group.net/get/afk?pass={self.bot.afk_pass}&action=unset&id={user.id}')
+            url = requests.get(f'https://api.aic-group.net/v1/discord/afk/?pass={self.bot.afk_pass}&action=unset&id={user.id}')
             text = url.text
             data = json.loads(text)
             await self.bot.get_channel(1034783037029875729).send(data)
